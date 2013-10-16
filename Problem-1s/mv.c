@@ -1,3 +1,7 @@
+/*
+ *	@author: Savikk
+ *	@e-mail: savikk@boo.pl
+ */
 #include <stdio.h>
 #include "vector.h"
 #include "matrix.h"
