@@ -1,4 +1,4 @@
 nakurwiatorstwo
 ===============
 
-Progs
+Repo do programów które nakurwiam
