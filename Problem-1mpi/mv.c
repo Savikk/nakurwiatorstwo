@@ -23,41 +23,23 @@ int main(int argc, char **argv){
 	MPI_Comm_size(MPI_COMM_WORLD,&size);
 	MPI_Comm_rank(MPI_COMM_WORLD,&rank);
 	int i,j,l;
-	if(size == 1) { 
-		for(i=0;i<16;i++){
-			Y->data[i]=0;
-		for(j=0;j<16;j++){
-			Y->data[i]+=A->data[i*16+j] *X->data[i];
-		}}
-	}
-	if(size!=1){
-	if(rank==0){
-	for(i=0;i<16;i++){
-			Y->data[i] = 0;
-		for(j=0;j<4;j++){
-			Y->data[i]+=A->data[i*16+j] * X->data[i];
-		}
-	}
-	for(l=0;l<4;l++){
-//	MPI_Recv(&K,TAB,Matrix,0,l,MPI_COMM_WORLD);
-	for(i=0;i<16;i++){
-		Y->data[i]+=K->data[i];} }
-		
-}
-	else{
-	for(i=0;i<16;i++){
-			K->data[i]= 0;
-		for(j=rank*4;j<rank*4+4;j++){
-			K->data[i]+=A->data[i*16+j] * X->data[i];
+	for(i=0;i<TAB;i++){
+	K->data[i]= 0;
+	for(j=rank*4;j<rank*4+4;j++){
+	K->data[i]+=A->data[i*TAB+j] * X->data[i];
 	}
 }
+printVector(K);
 
-}}	
-//kurwa ze tez te 2int sie nie sumuje	
-MPI_Reduce(&K,&Y,TAB,MPI_2INT,MPI_SUM,0,MPI_COMM_WORLD);
+
+//kurwa ze tez te 2int sie nie sumuje
+for(i=0;i<TAB;i++){	
+MPI_Reduce(&(K->data[i]),&(Y->data[i)],TAB,MPI_INT,MPI_SUM,0,MPI_COMM_WORLD);
 //MPI_Gather(&K,TAB,MPI_BYTE,&K,TAB,MPI_BYTE,0,MPI_COMM_WORLD);
+}
+if(rank==0){
 printVector(Y);
-			
+	}		
       
       fclose(we);
       fclose(ve);
