@@ -9,7 +9,7 @@
 #define TAB 16
 
 int main(int argc, char **argv){
-	int pom=0;int pom2=0;
+	double pom=0; double pom2=0;
 	int size,rank;
 		Vector *Y = newVector(TAB);
 		Vector *K = newVector(TAB);
@@ -24,27 +24,22 @@ int main(int argc, char **argv){
 	MPI_Comm_size(MPI_COMM_WORLD,&size);
 	MPI_Comm_rank(MPI_COMM_WORLD,&rank);
 	int i,j,l;
-	for(i=0;i<TAB;i++){
+	for(i=rank*4;i<rank*4+4;i++){
 	K->data[i]= 0;
-	for(j=rank*4;j<rank*4+4;j++){
+	for(j=0;j<TAB;j++){
 	K->data[i]+=A->data[i*TAB+j] * X->data[i];
-	}
-}
+	}}
 
+printVector(K);
 //kurwa ze tez te 2int sie nie sumuje
-for(i=0;i<TAB;i++){
-	pom=0;
-	pom2=0;
-for(j=0;j<TAB;j++){	
-	pom+=K->data[j];}
-MPI_Reduce(&pom,&pom2,1,MPI_INT,MPI_SUM,0,MPI_COMM_WORLD);
 
-if(rank==0){
-pom2=pom2/16;
-printf("%i\n",pom2);
-for(j=0;j<TAB;j++){
-Y->data[j]=pom2;}}
-}
+for(j=0;j<16;j++){	
+	pom+=K->data[j];
+
+//printf("%lf\n",pom);}
+MPI_Reduce(&pom,&pom2,1,MPI_DOUBLE,MPI_SUM,0,MPI_COMM_WORLD);
+if(rank==0){Y->data[j]=pom2;}
+pom=0;}
 if(rank==0){
 printVector(Y);
 	}		
