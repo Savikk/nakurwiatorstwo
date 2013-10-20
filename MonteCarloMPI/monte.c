@@ -42,7 +42,7 @@ int main (int argc, char *argv[]) { // po- srednie pi, pis - suma srednich pi, e
     }
  
   } 
-  po = 4.0 * (double)n_circle/(double)obrot;
+  po = 4.0 * (double)npkt/(double)obrot;
  
   MPI_Reduce(&po, &pis, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
  

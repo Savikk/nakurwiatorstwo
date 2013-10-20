@@ -4,13 +4,22 @@
  */
 #include <stdio.h>
 #include <mpi.h>
+#include <time.h>
 #include "vector.h"
 #include "matrix.h"
 #define TAB 16
+#define MAX 60000l
+#define MLD 1000000000.0
 
+void stoper();
 int main(int argc, char **argv){
 	double pom=0; double pom2=0;
 	int size,rank;
+	struct timespec tp0, tp1;
+	int a[MAX];
+	long ii,jj; double sp, sum;
+	clock_gettime(CLOCK_PROCESS_CPUTIME_ID,&tp0);
+
 		Vector *Y = newVector(TAB);
 		Vector *K = newVector(TAB);
 		Matrix *A = newMatrix(TAB,TAB);
@@ -30,18 +39,22 @@ int main(int argc, char **argv){
 	K->data[i]+=A->data[i*TAB+j] * X->data[i];
 	}}
 
-printVector(K);
-//kurwa ze tez te 2int sie nie sumuje
 
 for(j=0;j<16;j++){	
 	pom+=K->data[j];
 
 //printf("%lf\n",pom);}
 MPI_Reduce(&pom,&pom2,1,MPI_DOUBLE,MPI_SUM,0,MPI_COMM_WORLD);
+clock_gettime(CLOCK_PROCESS_CPUTIME_ID,&tp1);
+
 if(rank==0){Y->data[j]=pom2;}
 pom=0;}
 if(rank==0){
 printVector(Y);
+sp=(tp1.tv_sec+tp1.tv_nsec/MLD)-(tp0.tv_sec+tp0.tv_nsec/MLD);
+sum=sum+sp;
+printf("czas %3.15lf\n",sum/1000000);
+
 	}		
       
       fclose(we);
