@@ -2,20 +2,18 @@
 #include <stdio.h>
 #include <mpi.h>
 #include <time.h>
-#define MAX  600001
+#define MAX 600001
 #define MLD 1000000000.0
 
 void stoper();
 int main(int argc,char** argv){
-   int          a,b,n,h,rank, size;
-   double       s;
+   int a,b,n,h,rank, size;
+   double s;
    struct timespec tp0, tp1;
-   int m[MAX];
-   long i,j; double sp,sum;
+   double sp,sum;
    int pom;
-   MPI_Init(&argc,&argv);	
-//   for(pom=0;pom<1000000;pom++){
-   clock_gettime(CLOCK_PROCESS_CPUTIME_ID,&tp0);   
+   MPI_Init(&argc,&argv);        
+   clock_gettime(CLOCK_PROCESS_CPUTIME_ID,&tp0);
    MPI_Comm_rank(MPI_COMM_WORLD,&rank);
    MPI_Comm_size(MPI_COMM_WORLD,&size);
    
@@ -39,21 +37,20 @@ int main(int argc,char** argv){
    }
    
    MPI_Reduce(&trap,&s,1,MPI_DOUBLE,MPI_SUM,0,MPI_COMM_WORLD);
-   clock_gettime(CLOCK_PROCESS_CPUTIME_ID,&tp1);
-   sp=(tp1.tv_sec+tp1.tv_nsec/MLD)-(tp0.tv_sec+tp0.tv_nsec/MLD);
-   sum=sum+sp;
-
-	
+   
+        
    if ( rank == 0 ){
+	 clock_gettime(CLOCK_PROCESS_CPUTIME_ID,&tp1);
+     sp=(tp1.tv_sec+tp1.tv_nsec/MLD)-(tp0.tv_sec+tp0.tv_nsec/MLD);
+     sum=sum+sp;
      printf("\n e^(-x^2) \n");
      printf(" z a=%i do b=%i\n", a, b);
      printf(" liczba zadan: %d\n",size);
-  //   printf(" Steps per task: %i\n\n",n);
-     printf(" wynik: %e\n\n", s);  
+     printf(" wynik: %e\n\n", s);
      printf("czas %3.15lf\n",sum/1000000);
 
 
-    	
+            
       }
    
    MPI_Finalize();
