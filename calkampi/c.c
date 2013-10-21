@@ -11,12 +11,13 @@ int main(int argc,char** argv){
    double s;
    struct timespec tp0, tp1;
    double sp,sum;
-   int pom;
+  
+ int pom;
    MPI_Init(&argc,&argv);        
-   clock_gettime(CLOCK_PROCESS_CPUTIME_ID,&tp0);
+//   clock_gettime(CLOCK_PROCESS_CPUTIME_ID,&tp0);
    MPI_Comm_rank(MPI_COMM_WORLD,&rank);
    MPI_Comm_size(MPI_COMM_WORLD,&size);
-   
+   sp=MPI_Wtime();
    a = atoi(argv[1]);
    b = atoi(argv[2]);
    n = 10;
@@ -41,13 +42,14 @@ int main(int argc,char** argv){
         
    if ( rank == 0 ){
 	 clock_gettime(CLOCK_PROCESS_CPUTIME_ID,&tp1);
-     sp=(tp1.tv_sec+tp1.tv_nsec/MLD)-(tp0.tv_sec+tp0.tv_nsec/MLD);
-     sum=sum+sp;
+     //sp=(tp1.tv_sec+tp1.tv_nsec/MLD)-(tp0.tv_sec+tp0.tv_nsec/MLD);
+     //sum=sum+sp;
+     sum=MPI_Wtime();
      printf("\n e^(-x^2) \n");
      printf(" z a=%i do b=%i\n", a, b);
      printf(" liczba zadan: %d\n",size);
      printf(" wynik: %e\n\n", s);
-     printf("czas %3.15lf\n",sum);
+     printf("czas %3.15lf\n",sum-sp);
 
 
             
