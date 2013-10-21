@@ -1,4 +1,4 @@
 GCC	= gcc
-CCFLAGS	= -Wall  -o
+CCFLAGS	= -lrt  -o
 chuj:
 	${GCC} montes.c ${OBJ} ${CCFLAGS} monte -lm

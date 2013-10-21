@@ -10,17 +10,24 @@
   double r;
   r = ((b - a) * ((double) rand()/(double) RAND_MAX)) + a;
   return r;
+}
+double timeDiff(struct timespec *timeA_p, struct timespec *timeB_p)
+{
+        double diff = (((timeA_p->tv_sec * 1000000000) + timeA_p->tv_nsec) -
+                                         ((timeB_p->tv_sec * 1000000000) + timeB_p->tv_nsec));
+        return diff / 1000000000;
 } 
 int main (int argc, char *argv[]) { // po- srednie pi, pis - suma srednich pi, er - blad pomiaru w stosunku do wartosci PI z wiki
    int    npkt, i,licz;	    // npkt - punkty w kole
    double po,pis,a,b,s;      
- 
+  struct timespec start,end;
   struct timeval stime;
   pis = 0;
   npkt = 0; 
     printf("\n  Monte Carlo\n\n");
     printf("    ilosc badan     : %d\n\n", obrot);
- for(licz=1;licz<=size;licz++){
+    clock_gettime(CLOCK_MONOTONIC, &start);
+ 
 	npkt = 0;
 	po = 0;  
 srand(stime.tv_usec * stime.tv_usec * stime.tv_usec * stime.tv_usec);
@@ -36,10 +43,12 @@ srand(stime.tv_usec * stime.tv_usec * stime.tv_usec * stime.tv_usec);
  po = 4.0 * (double)npkt/(double)obrot;
  pis=pis+po;
 // printf(" po: %11.10f pis: %11.10f\n", po,pis);	
- }
+ 
+   clock_gettime(CLOCK_MONOTONIC, &end);
     pis=pis/size;
     printf("    PI #wiki   : %11.50f\n", PI);
     printf("    srednie PI  : %11.50f\n", pis);
+    printf("%.16f\n",timeDiff(&end,&start));
  return 0;
 }
 
