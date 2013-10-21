@@ -33,16 +33,26 @@ int main(int argc, char **argv){
 	MPI_Comm_size(MPI_COMM_WORLD,&size);
 	MPI_Comm_rank(MPI_COMM_WORLD,&rank);
 	int i,j,l;
-	for(i=rank*4;i<rank*4+4;i++){
-	K->data[i]= 0;
-	for(j=0;j<TAB;j++){
-	K->data[i]+=A->data[i*TAB+j] * X->data[i];
-	}}
+	//for(i=rank*4;i<rank*4+4;i++){
+	//K->data[i]= 0;
+	//for(j=0;j<TAB;j++){
+	//K->data[i]+=A->data[i*TAB+j] * X->data[i];
+	//}}
+	int rest = (size - (TAB % size)) % size;
+        int n_size = TAB + rest;
+        int part = n_size / size;
+	//int part=TAB/size;
+	for(i=0;i<n_size;i++){
+	//	K->data[i]=0;
+	   for(j=0;j<part;j++){
+		K->data[i]+=A->data[(i*n_size)+j]*X->data[i];
+		//printf("%i\n",K->data[i]);
+}
+}
 
 
 for(j=0;j<16;j++){	
 	pom+=K->data[j];
-
 //printf("%lf\n",pom);}
 MPI_Reduce(&pom,&pom2,1,MPI_DOUBLE,MPI_SUM,0,MPI_COMM_WORLD);
 clock_gettime(CLOCK_PROCESS_CPUTIME_ID,&tp1);
@@ -53,7 +63,7 @@ if(rank==0){
 printVector(Y);
 sp=(tp1.tv_sec+tp1.tv_nsec/MLD)-(tp0.tv_sec+tp0.tv_nsec/MLD);
 sum=sum+sp;
-printf("czas %3.15lf\n",sum/1000000);
+printf("czas %3.15lf\n",sum);
 
 	}		
       

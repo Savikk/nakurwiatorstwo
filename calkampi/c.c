@@ -47,7 +47,7 @@ int main(int argc,char** argv){
      printf(" z a=%i do b=%i\n", a, b);
      printf(" liczba zadan: %d\n",size);
      printf(" wynik: %e\n\n", s);
-     printf("czas %3.15lf\n",sum/1000000);
+     printf("czas %3.15lf\n",sum);
 
 
             
