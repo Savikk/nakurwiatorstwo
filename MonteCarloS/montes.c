@@ -6,7 +6,7 @@
 #define obrot    100000000 //ilosc obrotow
 #define size 4
 //funkcja wybierajaca randomowa liczbe pomiedzy -1 a 1
-double losuj(double a, double b) {
+ double losuj(double a, double b) {
   double r;
   r = ((b - a) * ((double) rand()/(double) RAND_MAX)) + a;
   return r;
