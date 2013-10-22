@@ -1,20 +1,20 @@
 ZJP
 ===
 Wszystkie czasy sprawdzane srednia czasow ze 10 uruchomien 
-programu w danej konfiguracji. Podzial na 2  tury sprawdzen.
+programu w danej konfiguracji.
 
 MonteCarlo (1 000 000 000 prob)
 ==
 Seq
 --
-> * 51.013
+> * 51.013s
 
 MPI
 --
-> - np 2 48.201
-  - np 4 47.973
-  - np 8 54.169
-  - np 16 131.992
+> - np 2 48.201s
+  - np 4 47.973s
+  - np 8 54.169s
+  - np 16 131.992s
   
 MonteCarlo (100 000 000 prob)
 ==
@@ -34,13 +34,13 @@ MPI
 ==
 Seq
 --
-> *0,78sec
+> *0,78s
 
 MPI
 --
-> - np 4 0.48sec
-  - np 8 0.55sec
-  - np 16 1.21sec
+> - np 4 0.48s
+  - np 8 0.55s
+  - np 16 1.21s
 M*V
 ==
 Seq
