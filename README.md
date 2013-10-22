@@ -2,11 +2,21 @@ ZJP
 ===
 Wszystkie czasy sprawdzane srednia czasow ze 100uruchomien 
 programu w danej konfiguracji. Podzial na 2  tury sprawdzen.
-Poniedzialek ok 20 - I
-Wtorek kolo 5 rano - II
-Wtorek kolo 10 - III
 
-MonteCarlo (100000000 prob)
+MonteCarlo (1 000 000 000 prob)
+==
+Seq
+--
+> * 51.013
+
+MPI
+--
+> - np 2 48.201
+  - np 4 47.973
+  - np 8 54.169
+  - np 16 131.992
+  
+MonteCarlo (100 000 000 prob)
 ==
 Seq
 --
@@ -15,11 +25,22 @@ Seq
 MPI 
 --
 >- np 1 5.566s
-- np 2 4.907s
-- np 4 4.847s
-- np 8 5.366s
-- np 16 10.739s
+>- np 2 4.907s
+>- np 4 4.847s
+>- np 8 5.366s
+>- np 16 10.739s
 
+10 000 000 prob
+==
+Seq
+--
+> *0,78sec
+
+MPI
+--
+> - np 4 0.48sec
+  - np 8 0.55sec
+  - np 16 1.21sec
 M*V
 ==
 Seq
