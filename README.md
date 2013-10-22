@@ -3,7 +3,8 @@ ZJP
 Wszystkie czasy sprawdzane srednia czasow ze 100uruchomien 
 programu w danej konfiguracji. Podzial na 2  tury sprawdzen.
 Poniedzialek ok 20 - I
-Wtorek kolo 10 - II
+Wtorek kolo 5 rano - II
+Wtorek kolo 10 - III
 
 MonteCarlo (100000000 prob)
 ==
@@ -11,7 +12,7 @@ Seq
 --
 > * 4.801s
 
-MPI
+MPI 
 --
 >- np 1 5.566s
 - np 2 4.907s
