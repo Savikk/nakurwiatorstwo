@@ -1,6 +1,6 @@
 ZJP
 ===
-Wszystkie czasy sprawdzane srednia czasow ze 100uruchomien 
+Wszystkie czasy sprawdzane srednia czasow ze 10 uruchomien 
 programu w danej konfiguracji. Podzial na 2  tury sprawdzen.
 
 MonteCarlo (1 000 000 000 prob)
